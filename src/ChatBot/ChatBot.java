@@ -34,7 +34,7 @@ public class ChatBot {
                 System.out.println(user + ", ты молодец. Пока!");
                 hi = 1;
             } else {
-                System.out.println("Попробуй ещё раз!");
+                System.out.print("Попробуй ещё раз!");
             }
         }
     }
