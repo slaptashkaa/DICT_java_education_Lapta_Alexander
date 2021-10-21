@@ -18,6 +18,7 @@ public class hangman {
 
         StringBuffer hideword = new StringBuffer(trueword);
 
+
         for (int i = 0; i < trueword.length(); i++) {
             hideword.setCharAt(i, '-');
         }
@@ -29,32 +30,38 @@ public class hangman {
             System.out.print("Input a letter: > ");
             Scanner scan = new Scanner(System.in);
             String letter = scan.nextLine();
-            if ( letter == "" ) {
-                continue;
-            }
+
+            if ( letter == "" ) continue;
 
             if ( trueword.contains(letter) ) {
                 char[] chtrueword = trueword.toCharArray();
 
+                if ( hideword.indexOf(letter) != -1 || hideword.lastIndexOf(letter) != -1 ) {
+                    System.out.println("No improvements");
+                    attempts--;
+                }
+
                 for (int i=0; i<trueword.length(); i++) {
-                    if( chtrueword[i] == letter.charAt(0) )
+                    if( chtrueword[i] == letter.charAt(0))
                         hideword.setCharAt(i, letter.charAt(0));
                 }
 
                 System.out.println("\n" + hideword);
             } else {
                 System.out.println("That letter doesn`t appear in the word\n\n" + hideword);
+                attempts--;
             }
-            attempts--;
+
+            if ( hideword.indexOf("-") == -1) {
+                System.out.println("You guessed the word!");
+                break;
+            }
         }
 
-        System.out.println("\nThanks for playing!\n" +
-                "We`ll see how well you did in the next stage");
-
-        /*if ( hideword.equals(trueword) ) {
+        if ( hideword.indexOf("-") == -1 ) {
             System.out.println("You survived!");
         } else {
             System.out.println("You lost!");
-        }*/
+        }
     }
 }
