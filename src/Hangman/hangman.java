@@ -21,19 +21,19 @@ public class hangman {
         words.add("kotlin");
         words.add("javascript");
 
-        ArrayList<Character> enteredletter = new ArrayList<Character>();
+        ArrayList<Character> enteredLetter = new ArrayList<Character>();
 
         final String trueword = words.get(new Random().nextInt(words.size()));
 
-        StringBuffer hideword = new StringBuffer(trueword);
-        StringBuffer lowercaseletter = new StringBuffer("qwertyuiopasdfghjklzxcvbnm");
+        StringBuffer hideWord = new StringBuffer(trueword);
+        StringBuffer lowercaseLetter = new StringBuffer("qwertyuiopasdfghjklzxcvbnm");
 
 
         for (int i = 0; i < trueword.length(); i++) {
-            hideword.setCharAt(i, '-');
+            hideWord.setCharAt(i, '-');
         }
 
-        System.out.println("Guess the word " + hideword + ":");
+        System.out.println("Guess the word " + hideWord + ":");
 
         int attempts = 8;
         while ( attempts != 0) {
@@ -42,44 +42,44 @@ public class hangman {
 
             if ( letter.equals("") ) continue;
             if ( letter.length() > 1 ) {
-                System.out.println("You should input a single letter.\n\n" + hideword);
+                System.out.println("You should input a single letter.\n\n" + hideWord);
                 continue;
             }
-            if ( lowercaseletter.indexOf(letter) == -1 ) {
-                System.out.println("Please enter a lowercase English letter.\n\n" + hideword);
+            if ( lowercaseLetter.indexOf(letter) == -1 ) {
+                System.out.println("Please enter a lowercase English letter.\n\n" + hideWord);
                 continue;
             }
 
             if ( trueword.contains(letter) ) {
                 char[] chtrueword = trueword.toCharArray();
 
-                if ( hideword.indexOf(letter) != -1 || hideword.lastIndexOf(letter) != -1 ) {
+                if ( hideWord.indexOf(letter) != -1 || hideWord.lastIndexOf(letter) != -1 ) {
                     System.out.println("You`ve already guessed this letter.");
                 }
 
                 for (int i=0; i<trueword.length(); i++) {
                     if( chtrueword[i] == letter.charAt(0))
-                        hideword.setCharAt(i, letter.charAt(0));
+                        hideWord.setCharAt(i, letter.charAt(0));
                 }
 
-                System.out.println("\n" + hideword);
+                System.out.println("\n" + hideWord);
             } else {
-                if ( enteredletter.contains(letter.charAt(0)) ) {
-                    System.out.println("You`ve already guessed this letter.\n\n" + hideword);
+                if ( enteredLetter.contains(letter.charAt(0)) ) {
+                    System.out.println("You`ve already guessed this letter.\n\n" + hideWord);
                 } else {
-                    System.out.println("That letter doesn`t appear in the word.\n\n" + hideword);
-                    enteredletter.add(letter.charAt(0));
+                    System.out.println("That letter doesn`t appear in the word.\n\n" + hideWord);
+                    enteredLetter.add(letter.charAt(0));
                     attempts--;
                 }
             }
 
-            if ( hideword.indexOf("-") == -1) {
+            if ( hideWord.indexOf("-") == -1) {
                 System.out.println("You guessed the word!");
                 break;
             }
         }
 
-        if ( hideword.indexOf("-") == -1 ) {
+        if ( hideWord.indexOf("-") == -1 ) {
             System.out.println("You survived!");
         } else {
             System.out.println("You lost!");
