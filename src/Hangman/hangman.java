@@ -1,6 +1,5 @@
 package Hangman;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -8,6 +7,13 @@ import java.util.Scanner;
 public class hangman {
     public static void main(String[] args) {
         System.out.println("HANGMAN");
+
+        menuGame();
+
+    }
+
+    public static void startGame() {
+        Scanner scan = new Scanner(System.in);
 
         ArrayList<String> words = new ArrayList<String>();
         words.add("java");
@@ -17,7 +23,7 @@ public class hangman {
 
         ArrayList<Character> enteredletter = new ArrayList<Character>();
 
-        String trueword = words.get(new Random().nextInt(words.size()));
+        final String trueword = words.get(new Random().nextInt(words.size()));
 
         StringBuffer hideword = new StringBuffer(trueword);
         StringBuffer lowercaseletter = new StringBuffer("qwertyuiopasdfghjklzxcvbnm");
@@ -32,10 +38,9 @@ public class hangman {
         int attempts = 8;
         while ( attempts != 0) {
             System.out.print("Input a letter: > ");
-            Scanner scan = new Scanner(System.in);
             String letter = scan.nextLine();
 
-            if ( letter == "" ) continue;
+            if ( letter.equals("") ) continue;
             if ( letter.length() > 1 ) {
                 System.out.println("You should input a single letter.\n\n" + hideword);
                 continue;
@@ -51,7 +56,6 @@ public class hangman {
                 if ( hideword.indexOf(letter) != -1 || hideword.lastIndexOf(letter) != -1 ) {
                     System.out.println("You`ve already guessed this letter.");
                 }
-
 
                 for (int i=0; i<trueword.length(); i++) {
                     if( chtrueword[i] == letter.charAt(0))
@@ -79,6 +83,25 @@ public class hangman {
             System.out.println("You survived!");
         } else {
             System.out.println("You lost!");
+        }
+
+        menuGame();
+    }
+
+    public static void menuGame() {
+        System.out.print("\nType \"play\" to play the game, \"exit\" to quit: > ");
+        Scanner scan = new Scanner(System.in);
+        while ( true ) {
+            String menu = scan.nextLine();
+
+            if( menu.equals("play") ) {
+                System.out.println("\n");
+                startGame();
+                break;
+            }
+
+            if( menu.equals("exit") ) System.exit(0);
+            else continue;
         }
     }
 }
