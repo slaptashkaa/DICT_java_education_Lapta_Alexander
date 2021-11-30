@@ -28,7 +28,6 @@ public class hangman {
         StringBuffer hideWord = new StringBuffer(trueword);
         StringBuffer lowercaseLetter = new StringBuffer("qwertyuiopasdfghjklzxcvbnm");
 
-
         for (int i = 0; i < trueword.length(); i++) {
             hideWord.setCharAt(i, '-');
         }
