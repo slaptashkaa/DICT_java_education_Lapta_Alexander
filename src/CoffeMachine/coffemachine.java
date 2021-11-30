@@ -1,17 +1,24 @@
 package CoffeMachine;
 
+import java.util.Scanner;
+
 public class coffemachine {
     enum Stage {START, GRIND, BOIL, MIX, POURCOFFE, POURMILK, READY}
 
     public static void main(String[] args) {
-        sendStatus(Stage.START);
-        sendStatus(Stage.GRIND);
-        sendStatus(Stage.BOIL);
-        sendStatus(Stage.MIX);
-        sendStatus(Stage.POURCOFFE);
-        sendStatus(Stage.POURMILK);
-        sendStatus(Stage.READY);
+        checkQuantity();
     }
+
+    public static void checkQuantity() {
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Write how many cups of coffe you will need:\n> ");
+        int cups = scan.nextInt();
+        System.out.println("For " + cups + " cups of coffee you will need:\n" +
+                200*cups + " ml of water\n" +
+                50*cups + " ml of milk\n" +
+                15*cups + " g of coffee beans");
+    }
+
     public static void sendStatus(Stage stage) {
         switch (stage) {
             case START: {
