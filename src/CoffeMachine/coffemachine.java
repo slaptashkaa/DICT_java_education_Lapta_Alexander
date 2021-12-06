@@ -6,17 +6,69 @@ import java.util.Scanner;
 public class coffemachine {
     enum Stage {START, GRIND, BOIL, MIX, POURCOFFE, POURMILK, READY}
 
-    static int water;
-    static int milk;
-    static int beans;
-    static int cups;
-    static int money;
+    static int water = 400;
+    static int milk = 540;
+    static int beans = 120;
+    static int cups = 9;
+    static int money = 550;
 
     public static void main(String[] args) {
-        makeCoffe();
+        checkStatistics();
+        startMachine();
     }
 
-    public static void makeCoffe() {
+    public static void startMachine() {
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Write action (buy, fill, take):\n> ");
+        switch ( scan.nextLine() ) {
+            case "buy":
+                System.out.print("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:\n> ");
+                switch ( scan.nextInt() ) {
+                    case 1:
+                        water -= 250;
+                        beans -= 16;
+                        money += 4;
+                        checkStatistics();
+                        break;
+                    case 2:
+                        water -= 350;
+                        milk -= 75;
+                        beans -= 20;
+                        money += 7;
+                        checkStatistics();
+                        break;
+                    case 3:
+                        water -= 200;
+                        milk -= 100;
+                        beans -= 12;
+                        money += 6;
+                        checkStatistics();
+                        break;
+                    default:
+                        startMachine();
+                }
+                break;
+            case "fill":
+                System.out.print("Write how many ml of water you want to add:\n> ");
+                water += scan.nextInt();
+                System.out.print("Write how many ml of milk you want to add:\n> ");
+                milk += scan.nextInt();
+                System.out.print("Write how many grams of coffee beans you want to add:\n> ");
+                beans += scan.nextInt();
+                System.out.print("Write how many disposable coffee cups you want to add:\n> ");
+                cups += scan.nextInt();
+                checkStatistics();
+                break;
+            case "take":
+                System.out.println("I gave you " + money + "\n");
+                money = 0;
+                checkStatistics();
+                break;
+            default:
+                startMachine();
+        }
+    }
+    /*public static void makeCoffe() {
         Scanner scan = new Scanner(System.in);
         System.out.print("Write how many ml of water the coffee machine has:\n> ");
         water = scan.nextInt();
@@ -43,16 +95,16 @@ public class coffemachine {
                 }
             }
         }
-    }
+    }*/
 
-    /*public static void checkStatistics() {
+    public static void checkStatistics() {
         System.out.println("The coffee machine has:\n" +
                 water + " of water\n" +
                 milk + " of milk\n" +
                 beans + " of coffee beans\n" +
                 cups +" of disposable cups\n" +
                 money + " of money");
-    }*/
+    }
 
     public static void checkQuantity() {
         Scanner scan = new Scanner(System.in);
