@@ -19,31 +19,51 @@ public class coffemachine {
 
     public static void startMachine() {
         Scanner scan = new Scanner(System.in);
-        System.out.print("Write action (buy, fill, take):\n> ");
+        System.out.print("Write action (buy, fill, take, remaining, exit):\n> ");
         switch ( scan.nextLine() ) {
             case "buy":
-                System.out.print("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:\n> ");
-                switch ( scan.nextInt() ) {
-                    case 1:
+                System.out.print("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back – to main menu:\n> ");
+                switch ( scan.nextLine() ) {
+                    case "1":
+                        if( water < 250 || beans < 16 || cups < 1 ) {
+                            System.out.println("I have enough resources, making you a coffee!");
+                            startMachine();
+                        }
                         water -= 250;
                         beans -= 16;
                         money += 4;
+                        cups -= 1;
                         checkStatistics();
+                        startMachine();
                         break;
-                    case 2:
+                    case "2":
+                        if( water < 350 || beans < 20 || milk < 75 || cups < 1 ) {
+                            System.out.println("I have enough resources, making you a coffee!");
+                            startMachine();
+                        }
                         water -= 350;
                         milk -= 75;
                         beans -= 20;
                         money += 7;
+                        cups -= 1;
                         checkStatistics();
+                        startMachine();
                         break;
-                    case 3:
+                    case "3":
+                        if( water < 200 || beans < 12 || milk < 100 || cups < 1 ) {
+                            System.out.println("I have enough resources, making you a coffee!");
+                            startMachine();
+                        }
                         water -= 200;
                         milk -= 100;
                         beans -= 12;
                         money += 6;
+                        cups -= 1;
                         checkStatistics();
+                        startMachine();
                         break;
+                    case "back":
+                        startMachine();
                     default:
                         startMachine();
                 }
@@ -58,12 +78,20 @@ public class coffemachine {
                 System.out.print("Write how many disposable coffee cups you want to add:\n> ");
                 cups += scan.nextInt();
                 checkStatistics();
+                startMachine();
                 break;
             case "take":
                 System.out.println("I gave you " + money + "\n");
                 money = 0;
                 checkStatistics();
+                startMachine();
                 break;
+            case "remaining":
+                checkStatistics();
+                startMachine();
+                break;
+            case "exit":
+                return;
             default:
                 startMachine();
         }
